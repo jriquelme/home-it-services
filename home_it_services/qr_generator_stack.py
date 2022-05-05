@@ -4,6 +4,7 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_s3_deployment as s3_deployment,
     aws_route53 as route53,
+    aws_route53_targets as route53_targets,
     aws_ses as ses,
     aws_ses_actions as ses_actions,
     aws_sns as sns,
@@ -55,6 +56,7 @@ class QRGeneratorStack(Stack):
         hosted_zone = route53.PublicHostedZone.from_hosted_zone_attributes(self, "Domain",
                                                                            hosted_zone_id=hosted_zone_id,
                                                                            zone_name=zone_name)
-        route53.CnameRecord(self, "QRSubdomain", domain_name=files.bucket_website_domain_name,
-                            zone=hosted_zone, record_name=subdomain)
+        route53.ARecord(self, "QRSubdomain",
+                        target=route53.RecordTarget.from_alias(route53_targets.BucketWebsiteTarget(files)),
+                        zone=hosted_zone, record_name=subdomain)
         return files
