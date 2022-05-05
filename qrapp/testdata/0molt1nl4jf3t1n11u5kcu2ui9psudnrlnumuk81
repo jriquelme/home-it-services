@@ -1,0 +1,78 @@
+Return-Path: <jorge@larix.cl>
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+ by inbound-smtp.us-east-1.amazonaws.com with SMTP id 0molt1nl4jf3t1n11u5kcu2ui9psudnrlnumuk81
+ for qr@ses.larix.cl;
+ Fri, 29 Apr 2022 15:52:44 +0000 (UTC)
+Received-SPF: pass (spfCheck: domain of larix.cl designates 209.85.161.49 as permitted sender) client-ip=209.85.161.49; envelope-from=jorge@larix.cl; helo=mail-oo1-f49.google.com;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of larix.cl designates 209.85.161.49 as permitted sender) client-ip=209.85.161.49; envelope-from=jorge@larix.cl; helo=mail-oo1-f49.google.com;
+ dkim=pass header.i=@larix-cl.20210112.gappssmtp.com;
+ dmarc=none header.from=larix.cl;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFHdXdOUEtaL3ZlbXVWNy9PbWg0elNSTG1jRS9hVmVGSnRkdThPcnluM1hSeVU5UVJ5aEx0SmhXVHBkcEloSVVmamhlRTZtQjdwejZXVjRITElEQkNNenVUUWQzMUYya2hpNmtOV3hLMHh3L2JVTWFBWnAvenZHT0FFS0tmT1ZwcUVkTnV1cGlPRW9aSnFCWHpZbEJTclhabFFGR2JvYnNCYTZGVlM4U2M5c3ZPVFpaL1ZOUGg1YnpoRzJNWS9sQTdJeGtidGJzQThrQ3hFVGlPRUlFUHMxYlpHdVdSQS8zcG41cGdkQkIzYW9xckVHT1FZckJUSFRLd081Zlo0bEsxYlVrZmFsSitSVjVsWGE3aC9nREd3TmVPNzgrVjJncWpObEE4bWdnTmRvWnc9PQ==
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=Y8S2gFjeW0dfEdPID11mHpVmGB3iSEY/eeppiupXUzHU+qQTTgwIVyRXUUP9TN+o/iKTwL0T1JV/3hzRXfHaObFbp8ZpgeMlsvywZ4yCGhC55uOk031p1IZgpjRq6FCA37bXMJjDsXM3/pN4eZpGhxwJwIr3p4LEMo7IRCwwdDM=; c=relaxed/simple; s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw; d=amazonses.com; t=1651247564; v=1; bh=JI3qaAxm9JI0nMlSx6xi+8XJg9M5NIciV5NMybi6vtA=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: by mail-oo1-f49.google.com with SMTP id j25-20020a4a7519000000b0035e6db06150so1472429ooc.6
+        for <qr@ses.larix.cl>; Fri, 29 Apr 2022 08:52:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=larix-cl.20210112.gappssmtp.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=JI3qaAxm9JI0nMlSx6xi+8XJg9M5NIciV5NMybi6vtA=;
+        b=dBzDMaSSIGT1hh4krgi50022tuMzU1qYpe2gNxk5rVMDMXZEiu3Mn7/KgJuPLb71/0
+         5YLp3H+bqArwTesuCQ1wbl56lfNXWRW4dSrXJFW3Enqwnjj+E7ZAxav8omqtSJBaJWx+
+         vfB607IPYqnXsF4nxXW4GS9b+cqO9W0RBq0PAvvj3YNjJA9hySitKXShgcCFkgvpeNcQ
+         3FWA4Aw24ltPWOWW443PR5bNxE3zdjg6/DtqTFm7ggGS9Bvx7Roxz7I1NTu8JgBD+K8S
+         +B3KrG3nwldYYTngZPBgdDhFbe0Nj6pvSoSk9JcdR+Xy1q3kmhChqNWSQxgk8gD/xCmi
+         nyNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=JI3qaAxm9JI0nMlSx6xi+8XJg9M5NIciV5NMybi6vtA=;
+        b=M9UcHla1IsATCeYU1H2dkZpUFGMnobOpB0OmdQMVeXQ8JzY7drZmqT7Fk69a43kt4K
+         7+CyvU5aofln5/mWJXVcq/nCUpJtd4RDf7RKalVghsg2EOKz+FvYlwihTw8vGnVLRpKR
+         HRTUuKg95S+S3BxVF5Ha5e7AfurrJii/laFlj9lh+zGdatKwPuva5k+rZb67vhNERD6r
+         qHNBibGZbn72HzlibEH5MdHAUggv21uEP4ucQ4eNExyp/4mgklEkFosn77eftFObxJuC
+         ZYpITsJBRP3mvFOxFpBxz4I7k1AQabSodPEH9gug8i465aVNJketMYyNUBdezMXRebt6
+         MTVw==
+X-Gm-Message-State: AOAM5319pu3GsTZg0e/8IzH8mV7CzWj0u9q7ZfNlPYUnjpjoNSF4+oee
+	obzbPubXoRn5VoQb9SdX1ORi3/D0gBkNAWmBd1Su3mr7C3jugu5o
+X-Google-Smtp-Source: ABdhPJw27z2dmotHxtsKfT5q5OkF2zR28zNDY6V5k185ycflgmXRsdbJRYly+433l9sYL4D3Pwj1/vJdz/UWyFsKHeU=
+X-Received: by 2002:a4a:d48c:0:b0:35e:aa26:b720 with SMTP id
+ o12-20020a4ad48c000000b0035eaa26b720mr2871969oos.12.1651247563101; Fri, 29
+ Apr 2022 08:52:43 -0700 (PDT)
+MIME-Version: 1.0
+From: Jorge Riquelme <jorge@larix.cl>
+Date: Fri, 29 Apr 2022 11:52:32 -0400
+Message-ID: <CAO+JdM0Q_tQeGNOwny+qUh=pn7AoeQ-ghHdyTn_m0+Mj0bACrw@mail.gmail.com>
+Subject: waiting
+To: qr@ses.larix.cl
+Content-Type: multipart/alternative; boundary="0000000000006f6e6805ddcd086c"
+
+--0000000000006f6e6805ddcd086c
+Content-Type: text/plain; charset="UTF-8"
+
+ssss
+Jorge Riquelme Santana
+
+Software Engineer | Larix Ltda <https://www.larix.cl>
+
+--0000000000006f6e6805ddcd086c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">ssss<br clear=3D"all"><div><div><div dir=3D"ltr" class=3D"=
+gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><table=
+ style=3D"border-spacing:0px;border-collapse:collapse;line-height:1.4;font-=
+family:Arial,Helvetica,sans-serif;color:rgb(0,0,1);font-size:11.7px" cellsp=
+acing=3D"0" cellpadding=3D"0" border=3D"0"><tbody><tr><td style=3D"padding:=
+0px 8px 0px 0px" valign=3D"top"></td><td style=3D"padding:0px 8px;font-size=
+:1em;font-family:Arial,Helvetica,sans-serif" valign=3D"top"><div style=3D"f=
+ont-size:1.2em">Jorge Riquelme Santana</div>
+<div style=3D"line-height:0.3em">=C2=A0</div>
+<div><span style=3D"font-weight:bold">Software Engineer</span>=C2=A0<span>|=
+=C2=A0</span><span><a href=3D"https://www.larix.cl" rel=3D"noopener" target=
+=3D"_blank">Larix Ltda</a></span></div></td><td style=3D"padding:0px 0px 3p=
+x 6px;border-left:3px solid rgb(85,169,49);font-family:Arial;width:60px;bor=
+der-top-color:rgb(85,169,49);border-right-color:rgb(85,169,49);border-botto=
+m-color:rgb(85,169,49)" valign=3D"middle"><br></td></tr></tbody></table></d=
+iv></div></div></div></div>
+
+--0000000000006f6e6805ddcd086c--

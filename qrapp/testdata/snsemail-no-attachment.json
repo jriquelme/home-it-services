@@ -1,0 +1,130 @@
+{
+  "notificationType": "Received",
+  "mail": {
+    "timestamp": "2022-04-29T15:52:44.309Z",
+    "source": "jorge@larix.cl",
+    "messageId": "0molt1nl4jf3t1n11u5kcu2ui9psudnrlnumuk81",
+    "destination": [
+      "qr@ses.larix.cl"
+    ],
+    "headersTruncated": false,
+    "headers": [
+      {
+        "name": "Return-Path",
+        "value": "<jorge@larix.cl>"
+      },
+      {
+        "name": "Received",
+        "value": "from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49]) by inbound-smtp.us-east-1.amazonaws.com with SMTP id 0molt1nl4jf3t1n11u5kcu2ui9psudnrlnumuk81 for qr@ses.larix.cl; Fri, 29 Apr 2022 15:52:44 +0000 (UTC)"
+      },
+      {
+        "name": "Received-SPF",
+        "value": "pass (spfCheck: domain of larix.cl designates 209.85.161.49 as permitted sender) client-ip=209.85.161.49; envelope-from=jorge@larix.cl; helo=mail-oo1-f49.google.com;"
+      },
+      {
+        "name": "Authentication-Results",
+        "value": "amazonses.com; spf=pass (spfCheck: domain of larix.cl designates 209.85.161.49 as permitted sender) client-ip=209.85.161.49; envelope-from=jorge@larix.cl; helo=mail-oo1-f49.google.com; dkim=pass header.i=@larix-cl.20210112.gappssmtp.com; dmarc=none header.from=larix.cl;"
+      },
+      {
+        "name": "X-SES-RECEIPT",
+        "value": "AEFBQUFBQUFBQUFHdXdOUEtaL3ZlbXVWNy9PbWg0elNSTG1jRS9hVmVGSnRkdThPcnluM1hSeVU5UVJ5aEx0SmhXVHBkcEloSVVmamhlRTZtQjdwejZXVjRITElEQkNNenVUUWQzMUYya2hpNmtOV3hLMHh3L2JVTWFBWnAvenZHT0FFS0tmT1ZwcUVkTnV1cGlPRW9aSnFCWHpZbEJTclhabFFGR2JvYnNCYTZGVlM4U2M5c3ZPVFpaL1ZOUGg1YnpoRzJNWS9sQTdJeGtidGJzQThrQ3hFVGlPRUlFUHMxYlpHdVdSQS8zcG41cGdkQkIzYW9xckVHT1FZckJUSFRLd081Zlo0bEsxYlVrZmFsSitSVjVsWGE3aC9nREd3TmVPNzgrVjJncWpObEE4bWdnTmRvWnc9PQ=="
+      },
+      {
+        "name": "X-SES-DKIM-SIGNATURE",
+        "value": "a=rsa-sha256; q=dns/txt; b=Y8S2gFjeW0dfEdPID11mHpVmGB3iSEY/eeppiupXUzHU+qQTTgwIVyRXUUP9TN+o/iKTwL0T1JV/3hzRXfHaObFbp8ZpgeMlsvywZ4yCGhC55uOk031p1IZgpjRq6FCA37bXMJjDsXM3/pN4eZpGhxwJwIr3p4LEMo7IRCwwdDM=; c=relaxed/simple; s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw; d=amazonses.com; t=1651247564; v=1; bh=JI3qaAxm9JI0nMlSx6xi+8XJg9M5NIciV5NMybi6vtA=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;"
+      },
+      {
+        "name": "Received",
+        "value": "by mail-oo1-f49.google.com with SMTP id j25-20020a4a7519000000b0035e6db06150so1472429ooc.6        for <qr@ses.larix.cl>; Fri, 29 Apr 2022 08:52:44 -0700 (PDT)"
+      },
+      {
+        "name": "DKIM-Signature",
+        "value": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=larix-cl.20210112.gappssmtp.com; s=20210112; h=mime-version:from:date:message-id:subject:to; bh=JI3qaAxm9JI0nMlSx6xi+8XJg9M5NIciV5NMybi6vtA=; b=dBzDMaSSIGT1hh4krgi50022tuMzU1qYpe2gNxk5rVMDMXZEiu3Mn7/KgJuPLb71/05YLp3H+bqArwTesuCQ1wbl56lfNXWRW4dSrXJFW3Enqwnjj+E7ZAxav8omqtSJBaJWx+vfB607IPYqnXsF4nxXW4GS9b+cqO9W0RBq0PAvvj3YNjJA9hySitKXShgcCFkgvpeNcQ3FWA4Aw24ltPWOWW443PR5bNxE3zdjg6/DtqTFm7ggGS9Bvx7Roxz7I1NTu8JgBD+K8S+B3KrG3nwldYYTngZPBgdDhFbe0Nj6pvSoSk9JcdR+Xy1q3kmhChqNWSQxgk8gD/xCminyNQ=="
+      },
+      {
+        "name": "X-Google-DKIM-Signature",
+        "value": "v=1; a=rsa-sha256; c=relaxed/relaxed;        d=1e100.net; s=20210112;        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;        bh=JI3qaAxm9JI0nMlSx6xi+8XJg9M5NIciV5NMybi6vtA=;        b=M9UcHla1IsATCeYU1H2dkZpUFGMnobOpB0OmdQMVeXQ8JzY7drZmqT7Fk69a43kt4K         7+CyvU5aofln5/mWJXVcq/nCUpJtd4RDf7RKalVghsg2EOKz+FvYlwihTw8vGnVLRpKR         HRTUuKg95S+S3BxVF5Ha5e7AfurrJii/laFlj9lh+zGdatKwPuva5k+rZb67vhNERD6r         qHNBibGZbn72HzlibEH5MdHAUggv21uEP4ucQ4eNExyp/4mgklEkFosn77eftFObxJuC         ZYpITsJBRP3mvFOxFpBxz4I7k1AQabSodPEH9gug8i465aVNJketMYyNUBdezMXRebt6         MTVw=="
+      },
+      {
+        "name": "X-Gm-Message-State",
+        "value": "AOAM5319pu3GsTZg0e/8IzH8mV7CzWj0u9q7ZfNlPYUnjpjoNSF4+oee\tobzbPubXoRn5VoQb9SdX1ORi3/D0gBkNAWmBd1Su3mr7C3jugu5o"
+      },
+      {
+        "name": "X-Google-Smtp-Source",
+        "value": "ABdhPJw27z2dmotHxtsKfT5q5OkF2zR28zNDY6V5k185ycflgmXRsdbJRYly+433l9sYL4D3Pwj1/vJdz/UWyFsKHeU="
+      },
+      {
+        "name": "X-Received",
+        "value": "by 2002:a4a:d48c:0:b0:35e:aa26:b720 with SMTP id o12-20020a4ad48c000000b0035eaa26b720mr2871969oos.12.1651247563101; Fri, 29 Apr 2022 08:52:43 -0700 (PDT)"
+      },
+      {
+        "name": "MIME-Version",
+        "value": "1.0"
+      },
+      {
+        "name": "From",
+        "value": "Jorge Riquelme <jorge@larix.cl>"
+      },
+      {
+        "name": "Date",
+        "value": "Fri, 29 Apr 2022 11:52:32 -0400"
+      },
+      {
+        "name": "Message-ID",
+        "value": "<CAO+JdM0Q_tQeGNOwny+qUh=pn7AoeQ-ghHdyTn_m0+Mj0bACrw@mail.gmail.com>"
+      },
+      {
+        "name": "Subject",
+        "value": "waiting"
+      },
+      {
+        "name": "To",
+        "value": "qr@ses.larix.cl"
+      },
+      {
+        "name": "Content-Type",
+        "value": "multipart/alternative; boundary=\"0000000000006f6e6805ddcd086c\""
+      }
+    ],
+    "commonHeaders": {
+      "returnPath": "jorge@larix.cl",
+      "from": [
+        "Jorge Riquelme <jorge@larix.cl>"
+      ],
+      "date": "Fri, 29 Apr 2022 11:52:32 -0400",
+      "to": [
+        "qr@ses.larix.cl"
+      ],
+      "messageId": "<CAO+JdM0Q_tQeGNOwny+qUh=pn7AoeQ-ghHdyTn_m0+Mj0bACrw@mail.gmail.com>",
+      "subject": "waiting"
+    }
+  },
+  "receipt": {
+    "timestamp": "2022-04-29T15:52:44.309Z",
+    "processingTimeMillis": 263,
+    "recipients": [
+      "qr@ses.larix.cl"
+    ],
+    "spamVerdict": {
+      "status": "DISABLED"
+    },
+    "virusVerdict": {
+      "status": "DISABLED"
+    },
+    "spfVerdict": {
+      "status": "PASS"
+    },
+    "dkimVerdict": {
+      "status": "GRAY"
+    },
+    "dmarcVerdict": {
+      "status": "GRAY"
+    },
+    "action": {
+      "type": "S3",
+      "topicArn": "arn:aws:sns:us-east-1:219222499386:QRGeneratorStack-Notifications87298708-1AQKV0LI78FEC",
+      "bucketName": "qrgeneratorstack-emailse39f01a5-nmlv3ohyccib",
+      "objectKey": "0molt1nl4jf3t1n11u5kcu2ui9psudnrlnumuk81"
+    }
+  }
+}
