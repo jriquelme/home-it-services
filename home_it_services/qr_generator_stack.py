@@ -1,5 +1,5 @@
 from aws_cdk import (
-    # Duration,
+    RemovalPolicy,
     Stack,
     aws_s3 as s3,
     aws_s3_deployment as s3_deployment,
@@ -21,7 +21,8 @@ class QRGeneratorStack(Stack):
 
         # configure email receiving (the domain must be properly configured in SES. Please read
         # https://docs.aws.amazon.com/ses/latest/dg/receiving-email.html)
-        emails = s3.Bucket(self, "Emails")
+        emails = s3.Bucket(self, "Emails", auto_delete_objects=True, block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+                           removal_policy=RemovalPolicy.DESTROY)
         notifications = sns.Topic(self, "Notifications")
         # the RuleSet default-rule-set must exist and be the active one
         rule_set = ses.ReceiptRuleSet.from_receipt_rule_set_name(self, "RuleSet",
@@ -40,6 +41,7 @@ class QRGeneratorStack(Stack):
                                           },
                                           go_build_flags=["-ldflags \"-s -w\""]))
         notifications.add_subscription(sns_subscriptions.LambdaSubscription(qr_app))
+        emails.grant_read_write(qr_app.role)
         files.grant_read_write(qr_app.role)
 
     def website_bucket(self, hosted_zone_id, zone_name, subdomain):
