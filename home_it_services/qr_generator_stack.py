@@ -10,6 +10,7 @@ from aws_cdk import (
     aws_sns as sns,
     aws_sns_subscriptions as sns_subscriptions,
     aws_lambda_go_alpha as lambda_go,
+    aws_iam as iam,
 )
 from constructs import Construct
 
@@ -35,15 +36,23 @@ class QRGeneratorStack(Stack):
         files = self.website_bucket(hosted_zone_id, zone_name, subdomain)
 
         # lambda to process notifications
-        qr_app = lambda_go.GoFunction(self, "QRApp", entry="qrapp",
+        qr_app = lambda_go.GoFunction(self, "QRApp", entry="qrapp/cmd",
                                       bundling=lambda_go.BundlingOptions(
                                           environment={
-                                              "FILES_BUCKET": files.bucket_name,
+                                              "FILES_BUCKET": files.bucket_name,  # FIXME? not working
                                           },
-                                          go_build_flags=["-ldflags \"-s -w\""]))
+                                          go_build_flags=["-ldflags \"-s -w\""]),
+                                      environment={
+                                          "FILES_BUCKET": files.bucket_name,
+                                      })
         notifications.add_subscription(sns_subscriptions.LambdaSubscription(qr_app))
         emails.grant_read_write(qr_app.role)
         files.grant_read_write(qr_app.role)
+        qr_app.add_to_role_policy(iam.PolicyStatement(
+            actions=["ses:SendRawEmail"],
+            effect=iam.Effect.ALLOW,
+            resources=[f"arn:aws:ses:{Stack.of(self).region}:{Stack.of(self).account}:identity/ses.larix.cl"],
+        ))
 
     def website_bucket(self, hosted_zone_id, zone_name, subdomain):
         # bucket to store the uploaded files
