@@ -16,7 +16,7 @@ type SESMailer struct {
 }
 
 func (sm *SESMailer) SendReply(ctx context.Context, messageID, from, to, subject, text, html string) error {
-	mailBuilder := enmime.Builder().Subject(subject).From("QR App", from).ReplyTo("", to).To("", to).
+	mailBuilder := enmime.Builder().Subject(subject).From("QR App", from).To("", to).
 		Header("In-Reply-To", messageID).Header("References", messageID).Text([]byte(text)).HTML([]byte(html))
 	part, err := mailBuilder.Build()
 	if err != nil {
