@@ -25,6 +25,7 @@ class QRGeneratorStack(Stack):
         # configure email receiving (the domain must be properly configured in SES. Please read
         # https://docs.aws.amazon.com/ses/latest/dg/receiving-email.html)
         emails = s3.Bucket(self, "Emails", auto_delete_objects=True, block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+                           lifecycle_rules=[s3.LifecycleRule(expiration=Duration.days(1))],
                            removal_policy=RemovalPolicy.DESTROY)
         notifications = sns.Topic(self, "Notifications")
         # the RuleSet default-rule-set must exist and be the active one
