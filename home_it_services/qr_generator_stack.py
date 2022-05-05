@@ -1,4 +1,5 @@
 from aws_cdk import (
+    Duration,
     RemovalPolicy,
     Stack,
     aws_s3 as s3,
@@ -44,7 +45,8 @@ class QRGeneratorStack(Stack):
                                           go_build_flags=["-ldflags \"-s -w\""]),
                                       environment={
                                           "FILES_BUCKET": files.bucket_name,
-                                      })
+                                      },
+                                      timeout=Duration.seconds(30))
         notifications.add_subscription(sns_subscriptions.LambdaSubscription(qr_app))
         emails.grant_read_write(qr_app.role)
         files.grant_read_write(qr_app.role)
