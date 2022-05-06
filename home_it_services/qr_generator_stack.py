@@ -12,6 +12,7 @@ from aws_cdk import (
     aws_sns_subscriptions as sns_subscriptions,
     aws_lambda_go_alpha as lambda_go,
     aws_iam as iam,
+    aws_logs as logs,
 )
 from constructs import Construct
 
@@ -47,6 +48,7 @@ class QRGeneratorStack(Stack):
                                       environment={
                                           "FILES_BUCKET": files.bucket_name,
                                       },
+                                      log_retention=logs.RetentionDays.ONE_DAY,
                                       timeout=Duration.seconds(30))
         notifications.add_subscription(sns_subscriptions.LambdaSubscription(qr_app))
         # adjust permissions
