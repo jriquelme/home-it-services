@@ -19,7 +19,7 @@ from constructs import Construct
 class QRGeneratorStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, hosted_zone_id: str, zone_name: str, subdomain: str,
-                 ses_recipient: str, **kwargs) -> None:
+                 ses_recipient: str, qr_ses_identity: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # configure email receiving (the domain must be properly configured in SES. Please read
@@ -55,7 +55,7 @@ class QRGeneratorStack(Stack):
         qr_app.add_to_role_policy(iam.PolicyStatement(
             actions=["ses:SendRawEmail"],
             effect=iam.Effect.ALLOW,
-            resources=[f"arn:aws:ses:{Stack.of(self).region}:{Stack.of(self).account}:identity/ses.larix.cl"],
+            resources=[qr_ses_identity]
         ))
 
     def website_bucket(self, hosted_zone_id, zone_name, subdomain):
