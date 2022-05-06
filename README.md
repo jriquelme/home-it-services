@@ -1,5 +1,9 @@
 # Home IT services
 
+This project showcases serverless solutions using different AWS services.
+
+## Deploying
+
 This a python CDK project, perform the usual spells:
 
 ```

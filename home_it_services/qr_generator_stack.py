@@ -49,6 +49,7 @@ class QRGeneratorStack(Stack):
                                       },
                                       timeout=Duration.seconds(30))
         notifications.add_subscription(sns_subscriptions.LambdaSubscription(qr_app))
+        # adjust permissions
         emails.grant_read_write(qr_app.role)
         files.grant_read_write(qr_app.role)
         qr_app.add_to_role_policy(iam.PolicyStatement(
