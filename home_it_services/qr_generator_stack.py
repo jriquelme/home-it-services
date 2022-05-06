@@ -63,8 +63,9 @@ class QRGeneratorStack(Stack):
     def website_bucket(self, hosted_zone_id, zone_name, subdomain):
         # bucket to store the uploaded files
         bucket_name = f"{subdomain}.{zone_name}"
-        files = s3.Bucket(self, "Files", bucket_name=bucket_name, public_read_access=True,
-                          website_error_document="error.html", website_index_document="index.html")
+        files = s3.Bucket(self, "Files", auto_delete_objects=True, bucket_name=bucket_name, public_read_access=True,
+                          removal_policy=RemovalPolicy.DESTROY, website_error_document="error.html",
+                          website_index_document="index.html")
         deployment = s3_deployment.BucketDeployment(self, "DeployFiles", destination_bucket=files,
                                                     sources=[s3_deployment.Source.asset("qr_website")])
         # expose files at a subdomain
