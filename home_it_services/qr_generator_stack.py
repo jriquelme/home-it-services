@@ -3,9 +3,6 @@ from aws_cdk import (
     RemovalPolicy,
     Stack,
     aws_s3 as s3,
-    aws_s3_deployment as s3_deployment,
-    aws_route53 as route53,
-    aws_route53_targets as route53_targets,
     aws_ses as ses,
     aws_ses_actions as ses_actions,
     aws_sns as sns,
@@ -16,11 +13,13 @@ from aws_cdk import (
 )
 from constructs import Construct
 
+from home_it_services.qr_website_stack import QRWebsiteStack
+
 
 class QRGeneratorStack(Stack):
 
-    def __init__(self, scope: Construct, construct_id: str, hosted_zone_id: str, zone_name: str, subdomain: str,
-                 ses_recipient: str, qr_ses_identity: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, construct_id: str, qr_website: QRWebsiteStack, ses_recipient: str,
+                 qr_ses_identity: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # configure email receiving (the domain must be properly configured in SES. Please read
@@ -36,7 +35,7 @@ class QRGeneratorStack(Stack):
                           recipients=[ses_recipient])
 
         # bucket to store files
-        files = self.website_bucket(hosted_zone_id, zone_name, subdomain)
+        files = qr_website.files_bucket
 
         # lambda to process notifications
         qr_app = lambda_go.GoFunction(self, "QRApp", entry="qrapp/cmd",
@@ -59,20 +58,3 @@ class QRGeneratorStack(Stack):
             effect=iam.Effect.ALLOW,
             resources=[qr_ses_identity]
         ))
-
-    def website_bucket(self, hosted_zone_id, zone_name, subdomain):
-        # bucket to store the uploaded files
-        bucket_name = f"{subdomain}.{zone_name}"
-        files = s3.Bucket(self, "Files", auto_delete_objects=True, bucket_name=bucket_name, public_read_access=True,
-                          removal_policy=RemovalPolicy.DESTROY, website_error_document="error.html",
-                          website_index_document="index.html")
-        deployment = s3_deployment.BucketDeployment(self, "DeployFiles", destination_bucket=files,
-                                                    sources=[s3_deployment.Source.asset("qr_website")])
-        # expose files at a subdomain
-        hosted_zone = route53.PublicHostedZone.from_hosted_zone_attributes(self, "Domain",
-                                                                           hosted_zone_id=hosted_zone_id,
-                                                                           zone_name=zone_name)
-        route53.ARecord(self, "QRSubdomain",
-                        target=route53.RecordTarget.from_alias(route53_targets.BucketWebsiteTarget(files)),
-                        zone=hosted_zone, record_name=subdomain)
-        return files
