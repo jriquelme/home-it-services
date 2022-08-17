@@ -1,6 +1,6 @@
 module github.com/jriquelme/home-it-services/qrapp
 
-go 1.18
+go 1.19
 
 require (
 	github.com/aws/aws-lambda-go v1.31.1
